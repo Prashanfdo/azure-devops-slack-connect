@@ -1,5 +1,5 @@
 import { Block, ChatPostMessageArguments, KnownBlock } from "@slack/web-api";
-import { GetSlackUser, GetSlackUserImageUrl, GetSlackUserName } from "../slack-helper";
+import { GetSlackUser, GetSlackUserId, GetSlackUserImageUrl, GetSlackUserName } from "../slack-helper";
 
 interface CommentResource {
     "author": {
@@ -46,7 +46,7 @@ function pullRequests() {
                 "type": 'section',
                 "text": {
                     "type": "mrkdwn",
-                    "text": `${data.resource.comment?.author.displayName} has <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|commented> on ${data.resource.pullRequest?.createdBy.displayName}'s <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|pull request>\n\`${data.resource.comment?.content}\``
+                    "text": `${data.resource.comment?.author.displayName} has <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|commented> on <@${await GetSlackUserId(data.resource.pullRequest?.createdBy.uniqueName)}>'s <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|pull request>\n\`${data.resource.comment?.content}\``
                 },
                 "accessory": {
                     "type": "image",
@@ -89,7 +89,8 @@ export default [
 
 function codeReviewMessage(blocks: (Block | KnownBlock)[], options?: Partial<ChatPostMessageArguments>): ChatPostMessageArguments {
     return {
-        channel: 'pull-requests',
+        // channel: 'pull-requests', 
+        channel: 'appservicescaling',
         username: 'DevOps',
         blocks,
         ...options

@@ -20,7 +20,10 @@ export async function GetSlackUser(email: any) {
         users = users.reduce((acc, user) => {
             return {
                 ...acc,
-                [user.profile?.email]: user.profile
+                [user.profile?.email]: {
+                    ...user.profile,
+                    id: user.id,
+                }
             };
         }, {});
     }
@@ -35,4 +38,8 @@ export async function GetSlackUserName(email: any) {
 
 export async function GetSlackUserImageUrl(email: any) {
     return (await GetSlackUser(email))?.image_192;
+}
+
+export async function GetSlackUserId(email: any) {
+    return (await GetSlackUser(email))?.id;
 }
