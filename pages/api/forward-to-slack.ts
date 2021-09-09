@@ -7,7 +7,7 @@ import { PostToSlack } from 'src/utils/slack-helper';
 const slackToken = process.env.SLACK_TOKEN;
 
 export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const messages: any = GetSlackMessages(req.body);
+  const messages: any = await GetSlackMessages(req.body);
   await Promise.all(messages.map(PostToSlack));
   res.status(200).json({ messages })
 }

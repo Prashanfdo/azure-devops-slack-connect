@@ -3,8 +3,8 @@ const transformers: any[] = [];
 
 transformers.push(...transformAzureDevopsEvents);
 
-export function GetSlackMessages(postData: any) {
+export async function GetSlackMessages(postData: any) {
     const matches = transformers.filter(([testFn]) => testFn?.(postData)).map(([, transformMessage]) => transformMessage);
 
-    return matches.map(transformMessage => transformMessage(postData));
+    return Promise.all(matches.map(transformMessage => transformMessage(postData)));
 }

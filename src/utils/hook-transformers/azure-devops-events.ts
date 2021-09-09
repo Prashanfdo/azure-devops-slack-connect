@@ -1,4 +1,5 @@
 import { Block, ChatPostMessageArguments, KnownBlock } from "@slack/web-api";
+import { GetSlackUser, GetSlackUserName } from "../slack-helper";
 
 interface CommentResource {
     "author": {
@@ -21,12 +22,12 @@ interface HookMessage {
 function pullRequests() {
     return [
         matchEvent('ms.vss-code.git-pullrequest-comment-event'),
-        (data: HookMessage) => codeReviewMessage([
+        async (data: HookMessage) => codeReviewMessage([
             {
                 "type": 'section',
                 "text": {
                     "type": "mrkdwn",
-                    "text": `${data.resource.comment?.author.displayName} has edited a pull request comment\r\nThis is my comment.\r\n ${data.resource.comment?.author.imageUrl} ${data.resource.comment?.author.uniqueName}`
+                    "text": `${await GetSlackUserName(data.resource.comment?.author.uniqueName)} has commented on Tharindu's pullrequest`
                 }
             }
         ])
@@ -38,7 +39,6 @@ export default [
 ];
 
 function codeReviewMessage(blocks: (Block | KnownBlock)[]): ChatPostMessageArguments {
-    console.log(blocks);
     return {
         channel: 'appservicescaling',
         blocks,
