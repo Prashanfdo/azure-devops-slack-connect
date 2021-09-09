@@ -20,6 +20,7 @@ interface CommentResource {
 interface PullRequestResource {
     "url": string;
     "title": string;
+    "pullRequestId": string;
     "createdBy": {
         "displayName": string;
         "uniqueName": string;
@@ -45,7 +46,7 @@ function pullRequests() {
                 "type": 'section',
                 "text": {
                     "type": "mrkdwn",
-                    "text": `${data.resource.comment?.author.displayName} has <${data.resource.comment?._links.self.href}|commented> on ${data.resource.pullRequest?.createdBy.displayName}'s <${data.resource.pullRequest?.url}|pullrequest>\n\`${data.resource.comment?.content}\``
+                    "text": `${data.resource.comment?.author.displayName} has <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|commented> on ${data.resource.pullRequest?.createdBy.displayName}'s <${pullRequestUrl(data.resource.pullRequest?.pullRequestId)}|pull request>\n\`${data.resource.comment?.content}\``
                 },
                 "accessory": {
                     "type": "image",
@@ -63,7 +64,7 @@ function pullRequests() {
                             "text": "View Comment",
                             "emoji": true
                         },
-                        "url": data.resource.comment?._links.self.href
+                        "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
                     },
                     {
                         "type": "button",
@@ -72,7 +73,7 @@ function pullRequests() {
                             "text": "View PR",
                             "emoji": true
                         },
-                        "url": data.resource.pullRequest?.url
+                        "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
                     },
                 ]
             }
@@ -99,3 +100,9 @@ function matchEvent(eventType: string) {
     return (hookData: any) => hookData?.eventType === eventType;
 }
 
+function commentUrl() {
+
+}
+function pullRequestUrl(prId?: string) {
+    return `https://dev.azure.com/labfriend/Labfriend/_git/LabFriendCore/pullrequest/${prId}`;
+}
