@@ -25,7 +25,7 @@ export async function GetSlackUser(email: any) {
         }, {});
     }
     const matchedUser = users[email];
-    console.log(matchedUser?.image_48);
+    // console.log(matchedUser);
     return matchedUser;
 }
 
@@ -34,5 +34,5 @@ export async function GetSlackUserName(email: any) {
 }
 
 export async function GetSlackUserImageUrl(email: any) {
-    return (await GetSlackUser(email))?.image_48;
+    return (await GetSlackUser(email))?.image_32;
 }
