@@ -89,7 +89,7 @@ export default [
 
 function codeReviewMessage(blocks: (Block | KnownBlock)[], options?: Partial<ChatPostMessageArguments>): ChatPostMessageArguments {
     return {
-        channel: 'appservicescaling',
+        channel: 'pull-requests',
         username: 'DevOps',
         blocks,
         ...options
