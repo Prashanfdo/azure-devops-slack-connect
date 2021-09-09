@@ -4,8 +4,8 @@ const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
 
 export async function PostToSlack(mesageArgs: ChatPostMessageArguments) {
-    // console.log(111111, await web.users.list()); 
     await web.chat.postMessage({
+        text: '',
         ...mesageArgs
     });
 }
@@ -23,15 +23,18 @@ export async function GetSlackUser(email: any) {
 
     const slackName = emailUserMap[email];
 
+    console.log(666666, slackName);
     if (!slackName) {
+        console.log(222222);
         return;
     }
 
-    if (!users || !usersLastUpdated || moment(usersLastUpdated).add(1, 'hours').isBefore(moment())) {
+    if (!users || !usersLastUpdated || moment(usersLastUpdated).add(15, 'minutes').isBefore(moment())) {
         usersLastUpdated = moment().toDate();
         users = (await web.users.list())?.members || [];
     }
-    return users.find(({ name }: any) => name === slackName)?.profile;
+    const matchedUser = users.find(({ name }: any) => name === slackName);
+    return matchedUser?.profile;
 }
 
 export async function GetSlackUserName(email: any) {
