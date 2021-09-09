@@ -35,5 +35,5 @@ export async function GetSlackUserName(email: any) {
 }
 
 export async function GetSlackUserImageUrl(email: any) {
-    return (await GetSlackUser(email))?.image_32;
+    return (await GetSlackUser(email))?.image_192;
 }

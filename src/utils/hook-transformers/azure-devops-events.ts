@@ -49,7 +49,7 @@ function pullRequests() {
                 },
                 "accessory": {
                     "type": "image",
-                    "image_url": await GetSlackUserImageUrl(data.resource.comment?.author.uniqueName),
+                    "image_url": await GetSlackUserImageUrl(data.resource.pullRequest?.createdBy.uniqueName),
                     "alt_text": data.resource.pullRequest?.createdBy.displayName
                 }
             },
