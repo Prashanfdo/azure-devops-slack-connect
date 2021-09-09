@@ -1,5 +1,5 @@
 import { Block, ChatPostMessageArguments, KnownBlock } from "@slack/web-api";
-import { GetSlackUser, GetSlackUserName } from "../slack-helper";
+import { GetSlackUser, GetSlackUserImageUrl, GetSlackUserName } from "../slack-helper";
 
 interface CommentResource {
     "author": {
@@ -27,10 +27,13 @@ function pullRequests() {
                 "type": 'section',
                 "text": {
                     "type": "mrkdwn",
-                    "text": `${await GetSlackUserName(data.resource.comment?.author.uniqueName)} has commented on Tharindu's pullrequest`
+                    "text": `${data.resource.comment?.author.displayName} has commented on Tharindu's pullrequest`
                 }
             }
-        ])
+        ], {
+            username: data.resource.comment?.author.displayName,
+            icon_url: await GetSlackUserImageUrl(data.resource.comment?.author.uniqueName),
+        })
     ];
 }
 
@@ -38,10 +41,12 @@ export default [
     pullRequests(),
 ];
 
-function codeReviewMessage(blocks: (Block | KnownBlock)[]): ChatPostMessageArguments {
+function codeReviewMessage(blocks: (Block | KnownBlock)[], options?: Partial<ChatPostMessageArguments>): ChatPostMessageArguments {
     return {
         channel: 'appservicescaling',
+        username: 'DevOps',
         blocks,
+        ...options
     }
 }
 
