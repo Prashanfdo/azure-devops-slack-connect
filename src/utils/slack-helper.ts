@@ -20,7 +20,8 @@ export async function GetSlackUser(email: any) {
         users = users.reduce((acc, user) => {
             return {
                 ...acc,
-                [user.profile?.email]: user.profile
+                [user.profile?.email]: user.profile,
+                'fabrikamfiber4@hotmail.com': user.profile,
             };
         }, {});
     }
