@@ -54,29 +54,29 @@ function pullRequests() {
                     "alt_text": data.resource.pullRequest?.createdBy.displayName
                 }
             },
-            {
-                "type": "actions",
-                "elements": [
-                    {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "View Comment",
-                            "emoji": true
-                        },
-                        "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
-                    },
-                    {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "View PR",
-                            "emoji": true
-                        },
-                        "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
-                    },
-                ]
-            }
+            // {
+            //     "type": "actions",
+            //     "elements": [
+            //         {
+            //             "type": "button",
+            //             "text": {
+            //                 "type": "plain_text",
+            //                 "text": "View Comment",
+            //                 "emoji": true
+            //             },
+            //             "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
+            //         },
+            //         {
+            //             "type": "button",
+            //             "text": {
+            //                 "type": "plain_text",
+            //                 "text": "View PR",
+            //                 "emoji": true
+            //             },
+            //             "url": pullRequestUrl(data.resource.pullRequest?.pullRequestId)
+            //         },
+            //     ]
+            // }
         ], {
             username: 'PR Commented'
         })
