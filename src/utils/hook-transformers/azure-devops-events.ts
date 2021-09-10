@@ -39,9 +39,9 @@ function pullRequests() {
     return [
         matchEvent('ms.vss-code.git-pullrequest-comment-event'),
         async (data: HookMessage) => codeReviewMessage([
-            {
-                "type": "divider"
-            },
+            // {
+            //     "type": "divider"
+            // },
             {
                 "type": 'section',
                 "text": {
