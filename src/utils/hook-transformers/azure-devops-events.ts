@@ -89,8 +89,8 @@ export default [
 
 function codeReviewMessage(blocks: (Block | KnownBlock)[], options?: Partial<ChatPostMessageArguments>): ChatPostMessageArguments {
     return {
-        // channel: 'pull-requests', 
-        channel: 'appservicescaling',
+        channel: 'pull-requests',
+        // channel: 'appservicescaling',
         username: 'DevOps',
         blocks,
         ...options
